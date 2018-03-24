@@ -1,0 +1,109 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// ensuring containers are 100% height
+html,body {
+  height: 100%;
+  // -webkit-font-smoothing: antialiased;
+  // -moz-osx-font-smoothing: grayscale;
+  // text-shadow: rgba(0,0,0,.01) 0 0 1px;
+}
+
+// navbar styling
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+a {
+  color: $green;
+
+  &:hover, &:active, &:visited {
+    color: $dark-green;
+  }
+}
+
+.navbar a.navbar-brand {
+  color: $green; 
+  
+  &:hover {
+    color: $dark-green;
+  }
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: $green;
+
+  &:hover, &:active, &:focus {
+    color: $dark-green;
+  }
+}
+
+li.nav-item {
+  color: $green;
+}
+
+// Profile page styles
+.profile-name {
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin-bottom: .5rem;
+  color: $text-color;
+}
+
+.profile-title {
+  font-weight: 500;
+  font-size: 1.0rem;
+  color: $text-color;
+}
+
+.profile-description {
+  font-weight: 300;
+  font-size: 1.0rem;
+  color: $text-color;
+}
+
+.profile-picture {
+  filter: grayscale(100%);
+}
+
+.profile-location {
+  font-weight: 300;
+  font-size: 1.0rem;
+  color: $text-color;
+  margin: .5rem auto;
+}
+
+.svg-icon {
+  height: 12px;
+  color: $text-color;
+}
+
+// list group override
+
+.list-group {
+  //box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+}
+
+.list-group-item {
+  border: 0;
+}
+
+.side-nav-dash .list-group-item button {
+  text-align: left;
+  background-color: $body-bg;
+  box-shadow: none;
+  border: 0;
+  margin-left: -0.600rem;
+
+  &:hover {
+    color: $light-text;
+  }
+}
