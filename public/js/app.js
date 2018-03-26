@@ -47240,6 +47240,24 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -47284,23 +47302,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             name: 'Vishnu',
             podcastResults: [],
+            episodes: [],
             searchTerm: ''
         };
     },
 
     methods: {
+
+        // use the apple podcast api to pull the podcast details
         searchApple: function searchApple() {
             var _this = this;
 
+            this.podcastResults = [];
             var formattedSearchTerm = this.searchTerm.replace(/\s/g, '+');
             var apple_api_url = 'https://itunes.apple.com/search?term=' + formattedSearchTerm + '&media=podcast';
-            fetch(apple_api_url).then(function (res) {
-                return res.json();
-            }).then(function (res) {
-                _this.podcastResults = res.data;
-            }).then(console.log(this.podcastResults)).catch(function (err) {
-                return console.log(err);
+            fetch(apple_api_url).then(function (blob) {
+                return blob.json();
+            }).then(function (data) {
+                return data.results;
+            }).then(function (data) {
+                var _podcastResults;
+
+                return (_podcastResults = _this.podcastResults).push.apply(_podcastResults, _toConsumableArray(data));
+            }).catch(function (error) {
+                return console.log(error);
             });
+
+            // get the xml feed and pull the episodes
+            // pull the feedUrl
+            //this.episodes = 
+        },
+        findMatches: function findMatches(queryString, podcasts) {
+            return this.podcastResults.filter(function (podcast) {
+                // match the podcast with the query string
+                var regex = new RegExp(queryString, 'gi');
+                return podcast.artistName.match(regex) || podcast.collectionName.match(regex);
+            });
+        },
+        displayMatches: function displayMatches() {
+            var searchInput = this.searchTerm;
         }
     }
 });
@@ -47317,6 +47357,21 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-left" }, [
       _c("div", { staticClass: "col-md-2 side-nav-dash" }, [
         _c("ul", { staticClass: "list-group" }, [
+          _c("li", { staticClass: "list-group-item" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-light",
+                on: {
+                  click: function($event) {
+                    _vm.searchPodcasts()
+                  }
+                }
+              },
+              [_vm._v("Search")]
+            )
+          ]),
+          _vm._v(" "),
           _c("li", { staticClass: "list-group-item" }, [
             _c(
               "button",
@@ -47354,21 +47409,6 @@ var render = function() {
                 staticClass: "btn btn-light",
                 on: {
                   click: function($event) {
-                    _vm.searchPodcasts()
-                  }
-                }
-              },
-              [_vm._v("Search")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "list-group-item" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-light",
-                on: {
-                  click: function($event) {
                     _vm.showCurrentPlaylist()
                   }
                 }
@@ -47394,79 +47434,126 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-10" },
-        [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v(_vm._s(_vm.name) + "'s profile details:")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("form", { attrs: { action: "" } }, [
-                _c("div", { staticClass: "input-group mb-3" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.searchTerm,
-                        expression: "searchTerm"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Search podcast",
-                      "aria-label": "Podcast search",
-                      "aria-describedby": "basic-addon2",
-                      name: "q"
-                    },
-                    domProps: { value: _vm.searchTerm },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.searchTerm = $event.target.value
-                      }
+      _c("div", { staticClass: "col-md-10" }, [
+        _c("div", { staticClass: "card card-default" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v(_vm._s(_vm.name) + "'s profile details:")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("form", { attrs: { action: "" } }, [
+              _c("div", { staticClass: "input-group mb-3" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.searchTerm,
+                      expression: "searchTerm"
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-group-append" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-secondary",
-                        attrs: { type: "submit" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            _vm.searchApple()
-                          }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Search podcast",
+                    "aria-label": "Podcast search",
+                    "aria-describedby": "basic-addon2",
+                    name: "q"
+                  },
+                  domProps: { value: _vm.searchTerm },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.searchTerm = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-group-append" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-secondary",
+                      attrs: { type: "submit" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.searchApple()
                         }
-                      },
-                      [_vm._v("Search")]
-                    )
-                  ])
+                      }
+                    },
+                    [_vm._v("Search")]
+                  )
                 ])
               ])
             ])
-          ]),
-          _vm._v(" "),
-          _vm._l(_vm.podcastResults, function(result) {
-            return _c("div", { key: result.trackId }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(result.trackName) +
-                  "\n            "
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "row" },
+          [
+            !_vm.podcastResults.length
+              ? _c("div", [_c("p", [_vm._v("No results to display...")])])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm._l(_vm.podcastResults, function(result) {
+              return _c(
+                "div",
+                { key: result.collectionId, staticClass: "col-sm-3 my-4" },
+                [
+                  _c("div", { staticClass: "card-deck" }, [
+                    _c("div", { staticClass: "card" }, [
+                      _c("img", {
+                        staticClass: "card-img-top",
+                        attrs: {
+                          src: result.artworkUrl600,
+                          alt: result.trackName
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-body" }, [
+                        _c("h5", { staticClass: "card-title" }, [
+                          _c("strong", [_vm._v(_vm._s(result.trackName))])
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "card-text" }, [
+                          _vm._v(
+                            "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "card-text" }, [
+                          _c("small", [_vm._v(_vm._s(result.primaryGenreName))])
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "card-text" }, [
+                          _c("small", { staticClass: "text-muted" }, [
+                            _vm._v("Last updated " + _vm._s(result.releaseDate))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-primary btn-block",
+                            attrs: { href: result.feedUrl }
+                          },
+                          [_vm._v("View Podcast")]
+                        )
+                      ])
+                    ])
+                  ])
+                ]
               )
-            ])
-          })
-        ],
-        2
-      )
+            })
+          ],
+          2
+        )
+      ])
     ])
   ])
 }
