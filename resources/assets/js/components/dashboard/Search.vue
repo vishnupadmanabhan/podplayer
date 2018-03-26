@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-10">
                 <div class="card card-default">
-                    <div class="card-header">{{ name }}'s profile details:</div>
+                    <div class="card-header">Search Podcasts:</div>
                     <div class="card-body">
                         <form action="">
                             <div class="input-group mb-3">                            
@@ -32,13 +32,14 @@
                     <div v-for="result in podcastResults" :key="result.collectionId" class="col-sm-3 my-4">
                         <div class="card-deck">
                             <div class="card">
-                                <img class="card-img-top" :src="result.artworkUrl600" :alt="result.trackName">
+                                <img class="card-img-top" :src="result.artworkUrl600" :alt="result.trackName"> 
                                 <div class="card-body">
-                                    <h5 class="card-title"><strong>{{ result.trackName }}</strong></h5>
-                                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="card-text"><small>{{ result.primaryGenreName }}</small></p>
+                                    <p class="card-title text-center"><span class="badge badge-danger" v-if="result.collectionExplicitness === 'explicit'" title="Explicit">E</span> <a :href="result.feedUrl"><strong>{{ result.trackName }}</strong></a></p>
+                                    
+                                    <!-- <p class="card-text">{{ result.artistName }}</p>
+                                    <p class="card-text"><span class="badge badge-danger" v-if="result.collectionExplicitness === 'explicit'" title="Explicit">E</span> <small>{{ result.primaryGenreName }}</small></p>
                                     <p class="card-text"><small class="text-muted">Last updated {{ result.releaseDate }}</small></p>
-                                    <a :href="result.feedUrl" class="btn btn-primary btn-block">View Podcast</a>
+                                    <a :href="result.feedUrl" class="btn btn-primary btn-block">View Podcast</a> -->
                                 </div>
                             </div>
                         </div>

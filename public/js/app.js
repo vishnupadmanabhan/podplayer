@@ -47293,6 +47293,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -47437,7 +47438,7 @@ var render = function() {
       _c("div", { staticClass: "col-md-10" }, [
         _c("div", { staticClass: "card card-default" }, [
           _c("div", { staticClass: "card-header" }, [
-            _vm._v(_vm._s(_vm.name) + "'s profile details:")
+            _vm._v("Search Podcasts:")
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -47516,34 +47517,22 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
-                        _c("h5", { staticClass: "card-title" }, [
-                          _c("strong", [_vm._v(_vm._s(result.trackName))])
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "card-text" }, [
-                          _vm._v(
-                            "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "card-text" }, [
-                          _c("small", [_vm._v(_vm._s(result.primaryGenreName))])
-                        ]),
-                        _vm._v(" "),
-                        _c("p", { staticClass: "card-text" }, [
-                          _c("small", { staticClass: "text-muted" }, [
-                            _vm._v("Last updated " + _vm._s(result.releaseDate))
+                        _c("p", { staticClass: "card-title text-center" }, [
+                          result.collectionExplicitness === "explicit"
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass: "badge badge-danger",
+                                  attrs: { title: "Explicit" }
+                                },
+                                [_vm._v("E")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("a", { attrs: { href: result.feedUrl } }, [
+                            _c("strong", [_vm._v(_vm._s(result.trackName))])
                           ])
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-primary btn-block",
-                            attrs: { href: result.feedUrl }
-                          },
-                          [_vm._v("View Podcast")]
-                        )
+                        ])
                       ])
                     ])
                   ])
