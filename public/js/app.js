@@ -47294,6 +47294,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -47331,7 +47332,16 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
             // get the xml feed and pull the episodes
             // pull the feedUrl
-            //this.episodes = 
+            var parseXml = new XMLHttpRequest();
+            console.log("XML Parsing started...");
+            this.podcastResults.forEach(function (element) {
+                console.log(_this.podcastResults);
+                parseXml.open("GET", _this.podcastResults.feedUrl, false);
+                parseXml.setRequestHeader("Content-Type", "text/xml");
+                parseXml.send(null);
+            });
+
+            console.log(element);
         },
         findMatches: function findMatches(queryString, podcasts) {
             return this.podcastResults.filter(function (podcast) {
@@ -47517,12 +47527,12 @@ var render = function() {
                       }),
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
-                        _c("p", { staticClass: "card-title text-center" }, [
+                        _c("h5", { staticClass: "card-title text-center" }, [
                           result.collectionExplicitness === "explicit"
                             ? _c(
                                 "span",
                                 {
-                                  staticClass: "badge badge-danger",
+                                  staticClass: "badge badge-pill badge-danger",
                                   attrs: { title: "Explicit" }
                                 },
                                 [_vm._v("E")]

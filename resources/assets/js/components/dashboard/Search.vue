@@ -34,12 +34,13 @@
                             <div class="card">
                                 <img class="card-img-top" :src="result.artworkUrl600" :alt="result.trackName"> 
                                 <div class="card-body">
-                                    <p class="card-title text-center"><span class="badge badge-danger" v-if="result.collectionExplicitness === 'explicit'" title="Explicit">E</span> <a :href="result.feedUrl"><strong>{{ result.trackName }}</strong></a></p>
+                                    <h5 class="card-title text-center"><span class="badge badge-pill badge-danger" v-if="result.collectionExplicitness === 'explicit'" title="Explicit">E</span> <a :href="result.feedUrl"><strong>{{ result.trackName }}</strong></a></h5>
                                     
                                     <!-- <p class="card-text">{{ result.artistName }}</p>
                                     <p class="card-text"><span class="badge badge-danger" v-if="result.collectionExplicitness === 'explicit'" title="Explicit">E</span> <small>{{ result.primaryGenreName }}</small></p>
-                                    <p class="card-text"><small class="text-muted">Last updated {{ result.releaseDate }}</small></p>
-                                    <a :href="result.feedUrl" class="btn btn-primary btn-block">View Podcast</a> -->
+                                    
+                                    <a :href="result.feedUrl" class="btn btn-primary btn-block">View Podcast</a> 
+                                    <p class="card-text"><small class="text-muted">Last updated {{ result.releaseDate }}</small></p> -->
                                 </div>
                             </div>
                         </div>
@@ -78,7 +79,18 @@
 
                 // get the xml feed and pull the episodes
                 // pull the feedUrl
-                //this.episodes = 
+                let parseXml = new XMLHttpRequest();
+                console.log("XML Parsing started...");
+                this.podcastResults.forEach(element => {
+                    console.log(this.podcastResults);
+                    parseXml.open("GET", this.podcastResults.feedUrl, false);
+                    parseXml.setRequestHeader("Content-Type", "text/xml");
+                    parseXml.send(null);
+
+                });
+
+                console.log(element);
+
             },
 
             findMatches(queryString, podcasts) {
