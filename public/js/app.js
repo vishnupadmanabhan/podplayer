@@ -47311,6 +47311,22 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
     methods: {
 
+        // including moment.js
+        moment: function (_moment) {
+            function moment(_x) {
+                return _moment.apply(this, arguments);
+            }
+
+            moment.toString = function () {
+                return _moment.toString();
+            };
+
+            return moment;
+        }(function (timestamp) {
+            return moment(timestamp);
+        }),
+
+
         // use the apple podcast api to pull the podcast details
         searchApple: function searchApple() {
             var _this = this;
@@ -47340,8 +47356,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
                 parseXml.setRequestHeader("Content-Type", "text/xml");
                 parseXml.send(null);
             });
-
-            console.log(element);
         },
         findMatches: function findMatches(queryString, podcasts) {
             return this.podcastResults.filter(function (podcast) {
@@ -47541,6 +47555,19 @@ var render = function() {
                           _vm._v(" "),
                           _c("a", { attrs: { href: result.feedUrl } }, [
                             _c("strong", [_vm._v(_vm._s(result.trackName))])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "card-text" }, [
+                          _c("small", { staticClass: "text-muted" }, [
+                            _vm._v(
+                              "Last updated " +
+                                _vm._s(
+                                  _vm
+                                    .moment(result.releaseDate)
+                                    .format("DD/MM/YYYY")
+                                )
+                            )
                           ])
                         ])
                       ])

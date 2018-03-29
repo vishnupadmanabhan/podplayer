@@ -39,8 +39,8 @@
                                     <!-- <p class="card-text">{{ result.artistName }}</p>
                                     <p class="card-text"><span class="badge badge-danger" v-if="result.collectionExplicitness === 'explicit'" title="Explicit">E</span> <small>{{ result.primaryGenreName }}</small></p>
                                     
-                                    <a :href="result.feedUrl" class="btn btn-primary btn-block">View Podcast</a> 
-                                    <p class="card-text"><small class="text-muted">Last updated {{ result.releaseDate }}</small></p> -->
+                                    <a :href="result.feedUrl" class="btn btn-primary btn-block">View Podcast</a>  -->
+                                    <p class="card-text"><small class="text-muted">Last updated {{ moment(result.releaseDate).format('DD/MM/YYYY') }}</small></p>
                                 </div>
                             </div>
                         </div>
@@ -66,6 +66,11 @@
         },
         methods: {
 
+            // including moment.js
+            moment(timestamp) {
+                return moment(timestamp);
+            },
+
             // use the apple podcast api to pull the podcast details
             searchApple() {
                 this.podcastResults = [];
@@ -86,10 +91,9 @@
                     parseXml.open("GET", this.podcastResults.feedUrl, false);
                     parseXml.setRequestHeader("Content-Type", "text/xml");
                     parseXml.send(null);
+                    
 
                 });
-
-                console.log(element);
 
             },
 
