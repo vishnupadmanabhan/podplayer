@@ -40,7 +40,7 @@
                                     <p class="card-text"><span class="badge badge-danger" v-if="result.collectionExplicitness === 'explicit'" title="Explicit">E</span> <small>{{ result.primaryGenreName }}</small></p>
                                     
                                     <a :href="result.feedUrl" class="btn btn-primary btn-block">View Podcast</a>  -->
-                                    <p class="card-text"><small class="text-muted">Last updated {{ moment(result.releaseDate).format('DD/MM/YYYY') }}</small></p>
+                                    <p class="card-text text-center"><small class="text-muted">Last updated <strong>{{ moment(result.releaseDate).fromNow() }}</strong></small></p>
                                 </div>
                             </div>
                         </div>
@@ -81,20 +81,6 @@
                     .then(data => data.results)
                     .then(data => this.podcastResults.push(...data))
                     .catch(error => console.log(error));
-
-                // get the xml feed and pull the episodes
-                // pull the feedUrl
-                let parseXml = new XMLHttpRequest();
-                console.log("XML Parsing started...");
-                this.podcastResults.forEach(element => {
-                    console.log(this.podcastResults);
-                    parseXml.open("GET", this.podcastResults.feedUrl, false);
-                    parseXml.setRequestHeader("Content-Type", "text/xml");
-                    parseXml.send(null);
-                    
-
-                });
-
             },
 
             findMatches(queryString, podcasts) {

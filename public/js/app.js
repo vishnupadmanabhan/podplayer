@@ -47345,17 +47345,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
             }).catch(function (error) {
                 return console.log(error);
             });
-
-            // get the xml feed and pull the episodes
-            // pull the feedUrl
-            var parseXml = new XMLHttpRequest();
-            console.log("XML Parsing started...");
-            this.podcastResults.forEach(function (element) {
-                console.log(_this.podcastResults);
-                parseXml.open("GET", _this.podcastResults.feedUrl, false);
-                parseXml.setRequestHeader("Content-Type", "text/xml");
-                parseXml.send(null);
-            });
         },
         findMatches: function findMatches(queryString, podcasts) {
             return this.podcastResults.filter(function (podcast) {
@@ -47558,16 +47547,14 @@ var render = function() {
                           ])
                         ]),
                         _vm._v(" "),
-                        _c("p", { staticClass: "card-text" }, [
+                        _c("p", { staticClass: "card-text text-center" }, [
                           _c("small", { staticClass: "text-muted" }, [
-                            _vm._v(
-                              "Last updated " +
-                                _vm._s(
-                                  _vm
-                                    .moment(result.releaseDate)
-                                    .format("DD/MM/YYYY")
-                                )
-                            )
+                            _vm._v("Last updated "),
+                            _c("strong", [
+                              _vm._v(
+                                _vm._s(_vm.moment(result.releaseDate).fromNow())
+                              )
+                            ])
                           ])
                         ])
                       ])
