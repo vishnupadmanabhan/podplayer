@@ -47345,6 +47345,11 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
             }).catch(function (error) {
                 return console.log(error);
             });
+
+            this.fetchFeed();
+        },
+        fetchFeed: function fetchFeed() {
+            console.log('Fetching the XML feed...');
         },
         findMatches: function findMatches(queryString, podcasts) {
             return this.podcastResults.filter(function (podcast) {

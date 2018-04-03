@@ -81,6 +81,12 @@
                     .then(data => data.results)
                     .then(data => this.podcastResults.push(...data))
                     .catch(error => console.log(error));
+
+                    this.fetchFeed();
+            },
+
+            fetchFeed() {
+                console.log('Fetching the XML feed...');
             },
 
             findMatches(queryString, podcasts) {
